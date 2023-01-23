@@ -1,0 +1,20 @@
+.space{
+    height: 30px;
+    background-color: rgb(228, 228, 228);
+}
+.categories-container{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.categories-container > h3{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 1.25rem;
+}
+.categories-list{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}

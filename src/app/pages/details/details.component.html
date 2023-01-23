@@ -1,0 +1,16 @@
+<div class="containerContent">
+    <div class="contentCover">
+        <img src="{{photo}}"alt=""/>
+    </div>
+    <div class="contentTitle">
+        <h1>{{title}}</h1>
+    </div>
+    <div class="contentDescription">
+        <p>R$ {{price}}</p>
+    </div>
+    <button class="btn-buy2">
+        <a (click)="PutQuantity()" [routerLink]="['']">
+            COMPRAR
+        </a>
+    </button>
+</div>

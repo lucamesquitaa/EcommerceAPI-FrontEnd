@@ -1,0 +1,14 @@
+<div class="products-card-container">
+    <img class="product-img" src={{photo}} alt=""/>
+    <h1 
+    class="product-title">{{title}}</h1>
+    <div class="separator">
+        <h3 class="price">R$ {{price}}</h3>
+        <button class="btn-buy">
+            <a [routerLink]="['content', id]">
+                visualizar
+            </a>
+        </button>
+    </div>
+    <p>Quantidade disponível: {{available}}</p>
+</div>

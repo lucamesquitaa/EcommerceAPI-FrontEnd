@@ -1,0 +1,10 @@
+<app-categories></app-categories>
+<div class="products-container">
+    <app-products-card *ngFor="let produto of filteredValues" 
+    [id]="produto.id" 
+    [title]="produto.title" 
+    [photo]="produto.photo"
+    [price]="produto.price" 
+    [category]="produto.category"
+    [available]="produto.available"></app-products-card>
+</div>
