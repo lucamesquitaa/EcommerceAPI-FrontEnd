@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { CategoriesComponent } from 'src/app/components/categories/categories.component';
+import { Component, Injectable } from '@angular/core';
 import { Products } from '../../../models/Products';
 import { ProductsService } from '../../services/product.service';
 
@@ -9,27 +8,29 @@ import { ProductsService } from '../../services/product.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
+@Injectable()
 export class HomeComponent {
 
-  constructor(private productsService: ProductsService, private suaClasse: CategoriesComponent){
-    this.suaClasse = suaClasse;
+  constructor(private productsService: ProductsService){
+    
   }
   listaProdutos: Products[] = [];
-  filteredValues : Products[] = [];
+  filteredProdutos: Products[] = [];
   
   ngOnInit(){
     this.productsService.getPosts().subscribe((data) => {
       this.listaProdutos = data;
-      this.filteredValues = this.listaProdutos;
+      this.filteredProdutos = this.listaProdutos;
     });
-    this.suaClasse.getValue().subscribe((category) => {
-      if(category == null) {
-          this.filteredValues = this.listaProdutos;
-        }else{
-          this.filteredValues = this.listaProdutos.filter(t => t.category == category);
-        }
-      }
-    );
+  
+  }
+
+  handleFilter(category : string){
+    if(category == "nofilter") {
+      this.filteredProdutos = this.listaProdutos;
+    }else{
+      this.filteredProdutos = this.listaProdutos.filter(t => t.category == category);
+    }
   }
  
 }
