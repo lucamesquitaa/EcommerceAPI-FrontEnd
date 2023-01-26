@@ -22,11 +22,10 @@ export class HomeComponent {
       this.listaProdutos = data;
       this.filteredProdutos = this.listaProdutos;
     });
-  
   }
 
   handleFilter(category : string){
-    if(category == "nofilter") {
+    if(category == "all") {
       this.filteredProdutos = this.listaProdutos;
     }else{
       this.filteredProdutos = this.listaProdutos.filter(t => t.category == category);

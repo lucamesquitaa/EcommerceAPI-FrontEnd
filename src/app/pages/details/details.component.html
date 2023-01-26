@@ -8,9 +8,19 @@
     <div class="contentDescription">
         <p>R$ {{price}}</p>
     </div>
-    <button class="btn-buy2">
-        <a (click)="PutQuantity()" [routerLink]="['']">
-            COMPRAR
-        </a>
-    </button>
+    <div class="contentAvailable">
+        <p>Quantidade disponível: {{available}}</p>
+    </div>
+    <div class="buy">
+        <div class="quantity">
+            <button (click)="decrementa()" class="soma">-</button>
+            <input type="number" readonly value="{{valor}}" class="valorBuy"/>
+            <button (click)="incrementa()" class="sub">+</button>        
+        </div>
+        <button class="btn-buy2">
+            <a (click)="PutQuantity(valor)" [routerLink]="['']">
+                COMPRAR
+            </a>
+        </button>
+    </div>
 </div>

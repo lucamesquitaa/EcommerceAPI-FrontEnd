@@ -14,13 +14,13 @@ export class DetailsComponent {
   title:string = ""
   price:number = 0
   category = ""
+  available: number= 0
+  valor = 1
  
   constructor(private route:ActivatedRoute, private productsService: ProductsService){
    
   }
   
-
- 
   ngOnInit():void{
     
     this.route.paramMap.subscribe( value =>
@@ -33,14 +33,32 @@ export class DetailsComponent {
           this.title = data[i].title
           this.price = data[i].price
           this.photo = data[i].photo
+          this.available = data[i].available
         }
       }
     });
   }
 
-  PutQuantity(){
+  incrementa(){
+    if(this.valor === this.available){
+      alert("Quantidade máxima de produtos selecionada.")
+      return;
+    }else{
+      this.valor++;
+    }
+  }
+  decrementa(){
+    if(this.valor === 1){
+      alert("A quantidade não pode ser menor que um.")
+      return;
+    }else{
+      this.valor--;
+    }
+  }
 
-    var produto = { requested : 1 };
+  PutQuantity(qnt : number){
+    
+    var produto = { requested : qnt };
 
     this.productsService.putProduct(this.id, produto);
 
