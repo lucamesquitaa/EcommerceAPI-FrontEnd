@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Products } from '../../models/Products';
+import { Product } from '../../models/Product';
 
 
 @Injectable({
 	providedIn:  'root'
 })
-export class ProductsService {
+export class ProductService {
 
 	private url = 'http://localhost:5210/v1/Products';
 
@@ -15,21 +15,26 @@ export class ProductsService {
 
 	data:any;
 
-	getPosts() : Observable<Products[]>{
-		this.data = this.http.get<Products[]>(this.url);
+	getProducts() : Observable<Product[]>{
+		this.data = this.http.get<Product[]>(this.url);
 		return this.data;
 	}
-	
-	putProduct(id: number|null, produto:any) : any{
-		this.http.put(`${ this.url }/${id}`, produto)
+
+  getProductById(id: number) : Observable<Product>{
+    this.data = this.http.get<Product>(`${ this.url }/${id}`);
+		return this.data;
+  }
+
+	putProductQnt(id: number|null, requested:number|null) : any{
+		this.http.put(`${ this.url }/${id}`, requested)
 		.subscribe(
-		  resultado => {
+		  result => {
 			console.log('Produto alterado com sucesso.')
 		  },
-		  erro => {
-			switch(erro.status) {
+		  error => {
+			switch(error.status) {
 			  case 400:
-				console.log(erro.error.mensagem);
+				console.log(error.error.mensagem);
 				break;
 			  case 404:
 				console.log('Produto não localizado.');

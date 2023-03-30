@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ProductsService } from '../../services/product.service';
+import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'app-details',
@@ -8,36 +8,31 @@ import { ProductsService } from '../../services/product.service';
   styleUrls: ['./details.component.css']
 })
 export class DetailsComponent {
-  
-  id:null| number = 0
-  photo:string = ""
-  title:string = ""
-  price:number = 0
-  category = ""
+
+  id: number = 0
+  photo: string = ""
+  title: string = ""
+  price: number = 0
   available: number= 0
   valor = 1
- 
-  constructor(private route:ActivatedRoute, private productsService: ProductsService){
-   
+
+  constructor(private route:ActivatedRoute, private productService: ProductService){
+
   }
-  
+
   ngOnInit():void{
-    
-    this.route.paramMap.subscribe( value =>
-      this.id = Number(value.get("id"))
-    )
-    
-    this.productsService.getPosts().subscribe((data) => {
-      for(let i = 0; i < data.length; i++) {
-        if(data[i].id == this.id) {
-          this.title = data[i].title
-          this.price = data[i].price
-          this.photo = data[i].photo
-          this.available = data[i].available
-        }
-      }
+
+      this.route.paramMap.subscribe( value =>
+        this.id = Number(value.get("id"))
+      );
+
+      this.productService.getProductById(this.id).subscribe((data) => {
+            this.photo = data.photo
+            this.title = data.title
+            this.price = data.price
+            this.available = data.available
     });
-  }
+    }
 
   incrementa(){
     if(this.valor === this.available){
@@ -57,13 +52,7 @@ export class DetailsComponent {
   }
 
   PutQuantity(qnt : number){
-    
-    var produto = { requested : qnt };
-
-    this.productsService.putProduct(this.id, produto);
-
+    this.productService.putProductQnt(this.id, qnt);
   }
-
 }
-  
 

@@ -1,6 +1,6 @@
 import { Component, Injectable } from '@angular/core';
-import { Products } from '../../../models/Products';
-import { ProductsService } from '../../services/product.service';
+import { Product } from '../../../models/Product';
+import { ProductService } from '../../services/product.service';
 
 
 @Component({
@@ -11,14 +11,14 @@ import { ProductsService } from '../../services/product.service';
 @Injectable()
 export class HomeComponent {
 
-  constructor(private productsService: ProductsService){
-    
+  constructor(private productService: ProductService){
+
   }
-  listaProdutos: Products[] = [];
-  filteredProdutos: Products[] = [];
-  
+  listaProdutos: Product[] = [];
+  filteredProdutos: Product[] = [];
+
   ngOnInit(){
-    this.productsService.getPosts().subscribe((data) => {
+    this.productService.getProducts().subscribe((data) => {
       this.listaProdutos = data;
       this.filteredProdutos = this.listaProdutos;
     });
@@ -31,5 +31,5 @@ export class HomeComponent {
       this.filteredProdutos = this.listaProdutos.filter(t => t.category == category);
     }
   }
- 
+
 }

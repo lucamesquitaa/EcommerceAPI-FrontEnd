@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./menu-bar.component.css']
 })
 export class MenuBarComponent {
-//<div matBadge="4" matBadgeColor="warn" matBadgeOverlap="false" class="demo-section"><img class="cart" src="../../../assets/cart.png" alt="Carrinho de compras"/></div>
+
 }

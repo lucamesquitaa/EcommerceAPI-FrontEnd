@@ -1,6 +1,6 @@
 <div class="containerContent">
     <div class="contentCover">
-        <img src="{{photo}}"alt=""/>
+        <img src="{{photo}}"alt="produto selecionado"/>
     </div>
     <div class="contentTitle">
         <h1>{{title}}</h1>
@@ -15,7 +15,7 @@
         <div class="quantity">
             <button (click)="decrementa()" class="soma">-</button>
             <input type="number" readonly value="{{valor}}" class="valorBuy"/>
-            <button (click)="incrementa()" class="sub">+</button>        
+            <button (click)="incrementa()" class="sub">+</button>
         </div>
         <button class="btn-buy2">
             <a (click)="PutQuantity(valor)" [routerLink]="['']">
