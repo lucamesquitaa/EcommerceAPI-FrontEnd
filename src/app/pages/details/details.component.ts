@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../../services/product.service';
+import { ProductBuy } from 'src/app/models/productsBuy.model';
 
 @Component({
   selector: 'app-details',
@@ -26,33 +27,57 @@ export class DetailsComponent {
         this.id = Number(value.get("id"))
       );
 
-      this.productService.getProductById(this.id).subscribe((data) => {
-            this.photo = data.photo
-            this.title = data.title
-            this.price = data.price
-            this.available = data.available
-    });
+      try {
+        // consume the service and get the product by ID
+        this.productService.getProductById(this.id).subscribe( value => {
+          this.photo = value.photo;
+          this.title = value.title;
+          this.price = value.price;
+          this.available = value.available;
+        });
+      } catch (error) {
+        console.error("Error getting product by ID:", error);
+      }
     }
 
-  incrementa(){
-    if(this.valor === this.available){
-      alert("Quantidade máxima de produtos selecionada.")
-      return;
-    }else{
+  //funções para incrementar e decrementar a quantidade de produtos
+  increment(){
+    if(this.valor < this.available){
       this.valor++;
+    } else {
+      console.error("Não pode incrementar acima da quantidade.");
     }
   }
-  decrementa(){
-    if(this.valor === 1){
-      alert("A quantidade não pode ser menor que um.")
-      return;
-    }else{
+
+  decrement(){
+    if(this.valor > 1){
       this.valor--;
+    } else {
+      console.error("Não pode decrementar abaixo de 1.");
     }
   }
 
   PutQuantity(qnt : number){
-    this.productService.putProductQnt(this.id, qnt);
+    try {
+      // update the product quantity
+      //this.productService.putProductQnt(this.id, qnt);
+    } catch (error) {
+      console.error("Error updating product quantity:", error);
+    }
+  }
+
+  //função que salva a quantidade de produtos comprados em um serviço de contexto
+  //para que possa ser acessado por outros componentes
+  saveQuantityBuy(qnt : number){
+    //this.PutQuantity(qnt);
+    let productBuy: ProductBuy = {
+      id: this.id,
+      title: this.title,
+      price: this.price,
+      photo: this.photo,
+      qnt: qnt
+    } ;
+    this.productService.setProductBuy(productBuy);
   }
 }
 

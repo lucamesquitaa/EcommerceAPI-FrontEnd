@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { HomeComponent } from '../../pages/home/home.component';
+import { FilterService } from 'src/app/services/filter.service';
 @Component({
   selector: 'app-categories',
   templateUrl: './categories.component.html',
@@ -7,12 +8,14 @@ import { HomeComponent } from '../../pages/home/home.component';
 })
 
 export class CategoriesComponent {
-  
-  constructor(private homeComponent : HomeComponent ){}
-  
+
+  constructor(public filterService : FilterService ){}
+
   onInit(){
   }
-  setFilter(category : string){
-    this.homeComponent.handleFilter(category);
+
+  //criar uma função que atualiza o valor da categoria
+  updateCategory(category: string){
+    this.filterService.setVariable(category);
   }
 }

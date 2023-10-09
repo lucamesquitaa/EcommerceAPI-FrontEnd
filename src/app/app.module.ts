@@ -12,6 +12,7 @@ import { MenuBarComponent } from './components/menu-bar/menu-bar.component';
 import { ProductsCardComponent } from './components/products-card/products-card.component';
 import { DetailsComponent } from './pages/details/details.component';
 import { HomeComponent } from './pages/home/home.component';
+import { LoginComponent } from './pages/login/login.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { HomeComponent } from './pages/home/home.component';
     MenuBarComponent,
     CategoriesComponent,
     CategoryComponent,
-    DetailsComponent
+    DetailsComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

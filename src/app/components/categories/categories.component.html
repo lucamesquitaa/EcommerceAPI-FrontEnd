@@ -1,12 +1,12 @@
 <div class="space">
-    
+
 </div>
 <div class="categories-container">
-    <h3>Categorias disponíveis:</h3>
-    <div class="categories-list">
-        <app-category (click)="setFilter('all')" photo="../../assets/grid.png" title="Celular"></app-category>
-        <app-category (click)="setFilter('cel')" photo="../../assets/cel.png" title="Celular"></app-category>
-        <app-category (click)="setFilter('note')" photo="../../assets/note.png" title="Notebook"></app-category>
-        <app-category (click)="setFilter('game')" photo="../../assets/console.png" title="Games"></app-category>
-    </div>
+  <h3>Categorias disponíveis:</h3>
+  <div class="categories-list">
+    <app-category (click)="updateCategory('all')" photo="../../assets/grid.png" title="Todos"></app-category>
+    <app-category (click)="updateCategory('cel')" photo="../../assets/cel.png" title="Celular"></app-category>
+    <app-category (click)="updateCategory('note')" photo="../../assets/note.png" title="Notebook"></app-category>
+    <app-category (click)="updateCategory('game')" photo="../../assets/console.png" title="Games"></app-category>
+  </div>
 </div>

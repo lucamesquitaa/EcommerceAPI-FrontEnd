@@ -1,47 +1,51 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Product } from '../../models/Product';
+import { ProductBuy } from '../models/productsBuy.model';
 
 
 @Injectable({
-	providedIn:  'root'
+  providedIn: 'root'
 })
 export class ProductService {
 
-	private url = 'http://localhost:5210/v1/Products';
+  private url = 'http://localhost:5210/v1/Products';
 
-	constructor(private http: HttpClient) { }
+  productBuy = signal<ProductBuy[]>([]);
 
-	data:any;
+  productsQuantityTotal = signal<number>(0);
 
-	getProducts() : Observable<Product[]>{
-		this.data = this.http.get<Product[]>(this.url);
-		return this.data;
-	}
+  constructor(private http: HttpClient) { }
 
-  getProductById(id: number) : Observable<Product>{
-    this.data = this.http.get<Product>(`${ this.url }/${id}`);
-		return this.data;
+  data: any;
+
+  //gerar get e set para productBuy
+  getProductBuy(): ProductBuy[] {
+    return this.productBuy();
   }
 
-	putProductQnt(id: number|null, requested:number|null) : any{
-		this.http.put(`${ this.url }/${id}`, requested)
-		.subscribe(
-		  result => {
-			console.log('Produto alterado com sucesso.')
-		  },
-		  error => {
-			switch(error.status) {
-			  case 400:
-				console.log(error.error.mensagem);
-				break;
-			  case 404:
-				console.log('Produto não localizado.');
-				break;
-			}
-		  }
-		);
-	}
+  setProductBuy(product: ProductBuy): void {
+    this.productsQuantityTotal.update((antigo) => antigo + product.qnt);
+    this.productBuy.mutate(values => values.push(product));
+  }
+
+  getProductsQuantityTotal(): number {
+    return this.productsQuantityTotal();
+  }
+
+  getProducts(): Observable<Product[]> {
+    this.data = this.http.get<Product[]>(this.url);
+    return this.data;
+  }
+
+  getProductById(id: number): Observable<Product> {
+    this.data = this.http.get<Product>(`${this.url}/${id}`);
+    return this.data;
+  }
+
+  putProductQnt(id: number | null, requested: number | null): any {
+    this.http.put(`${this.url}/${id}`, requested)
+  }
 
 }

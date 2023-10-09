@@ -1,6 +1,7 @@
-import { Component, Injectable } from '@angular/core';
+import { Component, Injectable, effect } from '@angular/core';
 import { Product } from '../../../models/Product';
 import { ProductService } from '../../services/product.service';
+import { FilterService } from 'src/app/services/filter.service';
 
 
 @Component({
@@ -11,24 +12,34 @@ import { ProductService } from '../../services/product.service';
 @Injectable()
 export class HomeComponent {
 
-  constructor(private productService: ProductService){
+  filtro: string;
 
+  constructor(private productService: ProductService, public filterService : FilterService){
+    //criar um evento que busca o valor da categoria no filterService
+    effect(() => {
+      this.filtro = this.filterService.getVariable();
+      this.handleFilter(this.filtro);
+    })
   }
+
   listaProdutos: Product[] = [];
-  filteredProdutos: Product[] = [];
+  filteredProducts: Product[] = [];
 
   ngOnInit(){
     this.productService.getProducts().subscribe((data) => {
       this.listaProdutos = data;
-      this.filteredProdutos = this.listaProdutos;
+      this.filteredProducts = data;
     });
   }
 
+  //atualizar a lista de produtos filtando por categoria preciso utilizar a this.listaProdutos e não chamar o productService novamente
   handleFilter(category : string){
-    if(category == "all") {
-      this.filteredProdutos = this.listaProdutos;
+    //se for all ele retorna a lista completa
+    if(category == "all"){
+      this.filteredProducts = this.listaProdutos;
+      return;
     }else{
-      this.filteredProdutos = this.listaProdutos.filter(t => t.category == category);
+      this.filteredProducts = this.listaProdutos.filter(x => x.category == category);
     }
   }
 
